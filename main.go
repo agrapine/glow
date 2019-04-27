@@ -6,6 +6,7 @@ import (
 )
 
 func main() {
+
   go gql.ServeGql(8080)
   
   _, _ = fmt.Scanln()
