@@ -1,6 +1,7 @@
 package gql
 
 import (
+  "../domain"
   "github.com/graphql-go/graphql"
   "github.com/graphql-go/handler"
   "log"
@@ -8,12 +9,25 @@ import (
   "strconv"
 )
 
-func HelloQuery(p graphql.ResolveParams) (interface{}, error) {
+func _HelloQuery(p graphql.ResolveParams) (interface{}, error) {
   return "word", nil
 }
 
 func _UsersQuery(p graphql.ResolveParams) (interface{}, error) {
-  return []string{"test", "another", "and another"}, nil
+  return []domain.User{
+    {Id: "1", Name: "alex", Email: "alex@home.com"},
+  }, nil
+}
+
+func _UserType() graphql.Type {
+  return graphql.NewObject(graphql.ObjectConfig{
+    Name: "User",
+    Fields: graphql.Fields{
+      "id":    &graphql.Field{Type: graphql.String},
+      "name":  &graphql.Field{Type: graphql.String},
+      "email": &graphql.Field{Type: graphql.String},
+    },
+  })
 }
 
 func ServeGql(port int16) {
@@ -21,10 +35,10 @@ func ServeGql(port int16) {
   fields := graphql.Fields{
     "hello": &graphql.Field{
       Type:    graphql.String,
-      Resolve: HelloQuery,
+      Resolve: _HelloQuery,
     },
     "users": &graphql.Field{
-      Type:    graphql.NewList(graphql.String),
+      Type:    graphql.NewList(_UserType()),
       Resolve: _UsersQuery,
     },
   }
