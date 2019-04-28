@@ -12,8 +12,9 @@ func ServeGql(port int16) {
 
   fields :=
     graphql.Fields{
-      "hello": hello(),
-      "users": users(),
+      "hello":    hello(),
+      "users":    users(),
+      "channels": channels(),
     }
 
   schema, e := graphql.NewSchema(graphql.SchemaConfig{
