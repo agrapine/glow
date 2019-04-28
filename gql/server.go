@@ -15,6 +15,7 @@ func Serve(port int16) {
       "hello":    hello(),
       "users":    users(),
       "channels": channels(),
+      "messages": messages(),
     }
 
   schema, e := graphql.NewSchema(graphql.SchemaConfig{

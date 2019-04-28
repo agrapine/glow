@@ -17,7 +17,8 @@ func users() *graphql.Field {
 
 func usersQuery(_ graphql.ResolveParams) (interface{}, error) {
   return []User{
-    {Id: "1", Name: "alex", Email: "alex@home.com"},
+    {Id: "1", Name: "krisu", Email: "kristiina@agrapine.com"},
+    {Id: "2", Name: "alex", Email: "alexandru@agrapine.com"},
   }, nil
 }
 
@@ -25,9 +26,9 @@ func userType() graphql.Type {
   return graphql.NewObject(graphql.ObjectConfig{
     Name: "User",
     Fields: graphql.Fields{
-      "id":    &graphql.Field{Type: graphql.String},
-      "name":  &graphql.Field{Type: graphql.String},
-      "email": &graphql.Field{Type: graphql.String},
+      "id":    &graphql.Field{Type: graphql.String, Description: "id of User"},
+      "name":  &graphql.Field{Type: graphql.String, Description: "name of User"},
+      "email": &graphql.Field{Type: graphql.String, Description: "email of User"},
     },
   })
 }
