@@ -8,7 +8,7 @@ import (
   "net/http"
 )
 
-func ServeGql(port int16) {
+func Serve(port int16) {
 
   fields :=
     graphql.Fields{
