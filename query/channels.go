@@ -1,23 +1,15 @@
-package gql
+package query
 
-import "github.com/graphql-go/graphql"
+import (
+  "../models"
+  "github.com/graphql-go/graphql"
+)
 
-type Channel struct {
-  Id          string `json:"id,omitempty"`
-  Description string `json:"description"`
-}
-
-func channels() *graphql.Field {
+func Channels() *graphql.Field {
   return &graphql.Field{
     Type:    graphql.NewList(channelType()),
     Resolve: channelsQuery,
   }
-}
-
-func channelsQuery(_ graphql.ResolveParams) (interface{}, error) {
-  return []Channel{
-    {Id: "1", Description: "General"},
-  }, nil
 }
 
 func channelType() graphql.Type {
@@ -29,5 +21,10 @@ func channelType() graphql.Type {
         "description": &graphql.Field{Type: graphql.String},
       },
     })
+}
 
+func channelsQuery(_ graphql.ResolveParams) (interface{}, error) {
+  return []models.Channel{
+    {Id: "1", Description: "General"},
+  }, nil
 }

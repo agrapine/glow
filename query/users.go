@@ -1,25 +1,16 @@
-package gql
+package query
 
-import "github.com/graphql-go/graphql"
+import (
+  "../models"
+  "fmt"
+  "github.com/graphql-go/graphql"
+)
 
-type User struct {
-  Id    string `json:"id,omitempty"`
-  Name  string `json:"name"`
-  Email string `json:"email"`
-}
-
-func users() *graphql.Field {
+func Users() *graphql.Field {
   return &graphql.Field{
     Type:    graphql.NewList(userType()),
     Resolve: usersQuery,
   }
-}
-
-func usersQuery(_ graphql.ResolveParams) (interface{}, error) {
-  return []User{
-    {Id: "1", Name: "krisu", Email: "kristiina@agrapine.com"},
-    {Id: "2", Name: "alex", Email: "alexandru@agrapine.com"},
-  }, nil
 }
 
 func userType() graphql.Type {
@@ -31,4 +22,11 @@ func userType() graphql.Type {
       "email": &graphql.Field{Type: graphql.String, Description: "email of User"},
     },
   })
+}
+
+func usersQuery(p graphql.ResolveParams) (interface{}, error) {
+  return []models.User{
+    {Id: "1", Name: "krisu", Email: "kristiina@agrapine.com"},
+    {Id: "2", Name: fmt.Sprintf("alex is ..."), Email: "alexandru@agrapine.com"},
+  }, nil
 }

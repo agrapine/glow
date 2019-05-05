@@ -1,19 +1,12 @@
-package gql
+package query
 
 import (
+  "../models"
   "github.com/graphql-go/graphql"
   "time"
 )
 
-type Message struct {
-  Id        string    `json:"id,omitempty"`
-  ChannelId string    `json:"channelId"`
-  SenderId  string    `json:"senderId"`
-  CreatedAt time.Time `json:"createdAt"`
-  Content   string    `json:"content"`
-}
-
-func messages() *graphql.Field {
+func Messages() *graphql.Field {
   return &graphql.Field{
     Type:    graphql.NewList(messageType()),
     Resolve: messagesQuery,
@@ -34,7 +27,8 @@ func messageType() graphql.Type {
 }
 
 func messagesQuery(_ graphql.ResolveParams) (interface{}, error) {
-  return []Message{
+
+  return []models.Message{
     {Id: "1",
       ChannelId: "1",
       SenderId:  "1",

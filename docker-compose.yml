@@ -1,16 +1,23 @@
 version: '3'
 
 services:
-  store:
-    image: rethinkdb
-#  data:
-#    image: mongo:latest
-#    container_name: "data"
-#    environment:
-#      - MONGO_DATA_DIR=/data/db
-#      - MONGO_LOG_DIR=/dev/null
+#  store:
+#    image: rethinkdb:latest
 #    volumes:
-#      - ./data/db:/data/db
+#      - ./store/db:/data
 #    ports:
-#      - 27017:27017
-#    command: mongod --smallfiles --logpath=/dev/null # --quiet
+#      - "38080:8080"
+#      - "28015:28015"
+#      - "29015:29015"
+  mongo:
+    container_name: mongo
+    image: mongo:latest
+    ports:
+      - 27017:27017
+    volumes:
+      - ./data/db:/data/db
+    environment:
+      - MONGO_DATA_DIR=/data/db
+      - MONGO_LOG_DIR=/dev/null
+    command: mongod --smallfiles --logpath=/dev/null # --quiet
+
