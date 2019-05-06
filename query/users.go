@@ -1,7 +1,7 @@
 package query
 
 import (
-  "../models"
+  "github.com/agrapine/glow/models"
   "fmt"
   "github.com/graphql-go/graphql"
 )

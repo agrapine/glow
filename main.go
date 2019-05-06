@@ -1,11 +1,13 @@
 package main
 
 import (
-  "./query"
-  "./server"
-  "fmt"
+  "github.com/agrapine/glow/query"
+  "github.com/agrapine/glow/server"
   "github.com/graphql-go/graphql"
   "log"
+  "os"
+  "os/signal"
+  "syscall"
 )
 
 func main() {
@@ -30,6 +32,16 @@ func main() {
   }
   go config.Serve()
 
-  _, _ = fmt.Scanln()
-  fmt.Println("finished")
+  waitForTerminate()
+}
+
+func waitForTerminate() {
+  osSignal := make(chan os.Signal, 1)
+  signal.Notify(osSignal, os.Interrupt, syscall.SIGINT, syscall.SIGTERM)
+
+  // Block until we receive our signal.
+  <-osSignal
+
+  log.Println("shutting down")
+  os.Exit(0)
 }
